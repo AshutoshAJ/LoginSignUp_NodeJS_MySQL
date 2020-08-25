@@ -5,8 +5,8 @@ const mySqlClient  = require('mysql')
 var con = mySqlClient.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'ajmysql12',
-    database: 'sellerapp'
+    password: 'YOUR PASSWORD HERE',
+    database: 'YOUR DB NAME HERE'
 })
 
 con.connect(function(err) {
@@ -27,14 +27,7 @@ con.connect(function(err) {
             password: password
         }
 
-        var sqlStatement1 = "INSERT INTO users (userName, userEmail, password) VALUES ('" + user + "','" + email + "','" + password + "');"
-
-        console.log(sqlStatement);
-        /*console.log(user)
-        console.log(email)
-        console.log(password)*/
-        console.log(sqlStatement1)
-
+        var sqlStatement1 = "INSERT INTO users (userName, userEmail, password) VALUES ('" + user + "','" + email + "','" + password + "');"        
 
         con.query(sqlStatement1, function(err, result) {
             if(err) {
@@ -49,12 +42,11 @@ con.connect(function(err) {
     })
 
     app.post('/login', (req, res) => {
+        
         var sqlStatement = "SELECT * FROM users WHERE userEmail = ? AND password = ?";        
-        //var sqlStatement = "SELECT * FROM users WHERE userName = " + mySqlClient.escape(email) + " AND password = " + mySqlClient.escape(password)
+        
         var email = req.body.email
-        var password = req.body.password
-        /*console.log(email)
-        console.log(password)*/
+        var password = req.body.password        
 
         con.query(sqlStatement, [email, password], function(err, result) {
             if(err){ 
